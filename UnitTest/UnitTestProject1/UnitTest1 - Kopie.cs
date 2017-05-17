@@ -7,7 +7,6 @@ using System.Threading.Tasks;
 using System.IO;
 
 using Program;
-using static Program.Textumbruch;
 using static System.Environment;
 
 namespace UnitTestProject1

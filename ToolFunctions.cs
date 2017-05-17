@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Principal;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading;
 
 namespace Program
@@ -18,6 +19,16 @@ namespace Program
         {
             return !(string.IsNullOrEmpty(text));
         }
+
+        public static string ReplaceCaseInsensitiveFind(this string str, string findMe,
+            string newValue)
+        {
+            return Regex.Replace(str,
+                Regex.Escape(findMe),
+                Regex.Replace(newValue, "\\$[0-9]+", @"$$$0"),
+                RegexOptions.IgnoreCase);
+        }
+
 
         public static string GetRightPartOf(this string inStr, string partToFind)
         {
