@@ -54,19 +54,31 @@ namespace Program
             return wortgruppe.ToArray();
         }
 
+        public static string[][] WorteZusammenfassenProZeile(string[] wörter, int maxLength)
+        {
+            List<String> wortliste=wörter.ToList();
+            var zeilenCollection= new List<string[]>();
+            while (wortliste.Count > 0)
+            {
+                zeilenCollection.Add( WorteDerZeileBestimmen(wortliste, maxLength));
+            }
+
+            return zeilenCollection.ToArray();
+        }
+
         public static String[] WortGruppenBestimmen(string[] wortliste, int wortSuchBeginnIndex, int maxLength)
         {
             const int wordSeparatorLength = 1;
             var wortgruppe = new List<String>();
             int currentLineLength = 0;
-            int iWordCursor=wortSuchBeginnIndex;
+            int iWordCursor = wortSuchBeginnIndex;
             while (iWordCursor < wortliste.Count())
             {
                 String currentWord = wortliste[iWordCursor];
 
                 int lineLongerCountForCurrentWord = currentLineLength + currentWord.Length;
                 bool zeilenAnfang = currentLineLength == 0;
-                if (false==zeilenAnfang)
+                if (false == zeilenAnfang)
                 {
                     lineLongerCountForCurrentWord += wordSeparatorLength;
                 }
@@ -83,50 +95,6 @@ namespace Program
             }
             return wortgruppe.ToArray();
         }
-        public static string[][] WorteZusammenfassenProZeile(string[] wörter, int maxLength)
-        {
-            List<String> wortliste=wörter.ToList();
-            var zeilenCollection= new List<string[]>();
-            while (wortliste.Count > 0)
-            {
-                zeilenCollection.Add( WorteDerZeileBestimmen(wortliste, maxLength));
-            }
-
-            return zeilenCollection.ToArray();
-        }
-
-        public static string[] BildeZeilenAusWortgruppenImmutable(string[] wörter, int maxLength)
-        {
-            var zeilenCollection = new List<string>();
-            int wortSuchBeginnIndex = 0;
-
-            while (wortSuchBeginnIndex < wörter.Count())
-            {
-                string[] wortgruppe = WortGruppenBestimmen(wörter, wortSuchBeginnIndex, maxLength);
-                int anzahlWörterInWortGruppe=wortgruppe.Count();
-                wortSuchBeginnIndex += anzahlWörterInWortGruppe;
-
-                var zeile = new Zeile(wortgruppe);
-                
-                Debug.Assert(anzahlWörterInWortGruppe >0);
-            }
-
-            return zeilenCollection.ToArray();
-        }
-
-        public static Zeile[] ZeilenBildenAusWortgruppen(string[] wörter, int maxLength)
-        {
-            List<String> eingangsWortliste = wörter.ToList();
-            var zeilenCollection = new List<Zeile>();
-            while (eingangsWortliste.Count > 0)
-            {
-                var wortgruppe = WorteDerZeileBestimmen(eingangsWortliste, maxLength);
-                var zeile = new Zeile(wortgruppe);
-                zeilenCollection.Add(zeile);
-            }
-
-            return zeilenCollection.ToArray();
-        }
 
         public static string AusgabetextAufbereiten(string[] eingabe)
         {
@@ -139,21 +107,89 @@ namespace Program
             return Umbrechen(text, maxZeilenlänge);
         }
 
-        public class Zeile
-        {
-            const string WordSeparator = " ";
+        #region Phils Code
+        //public class Zeile
+        //{
+        //    const string WordSeparator = " ";
 
-            public Zeile(string[] zeilenteile)
-            {
-                ZeilenText= String.Join(WordSeparator, zeilenteile);
-            }
+        //    public Zeile(string[] zeilenteile)
+        //    {
+        //        ZeilenText= String.Join(WordSeparator, zeilenteile);
+        //    }
 
-            public Zeile(string zeilenText)
-            {
-                ZeilenText = zeilenText;
-            }
+        //    public Zeile(string zeilenText)
+        //    {
+        //        ZeilenText = zeilenText;
+        //    }
 
-            public string ZeilenText { get; }
-        }
+        //    public string ZeilenText { get; }
+        //}
+        //public static string[] BildeZeilenAusWortgruppenImmutable(string[] wörter, int maxLength)
+        //{
+        //    var zeilenCollection = new List<string>();
+        //    int wortSuchBeginnIndex = 0;
+
+        //    while (wortSuchBeginnIndex < wörter.Count())
+        //    {
+        //        string[] wortgruppe = WortGruppenBestimmen(wörter, wortSuchBeginnIndex, maxLength);
+        //        int anzahlWörterInWortGruppe = wortgruppe.Count();
+        //        wortSuchBeginnIndex += anzahlWörterInWortGruppe;
+
+        //        var zeile = new Zeile(wortgruppe);
+
+        //        Debug.Assert(anzahlWörterInWortGruppe > 0);
+        //    }
+
+        //    return zeilenCollection.ToArray();
+        //}
+
+        //public static Zeile[] ZeilenBildenAusWortgruppen(string[] wörter, int maxLength)
+        //{
+        //    List<String> eingangsWortliste = wörter.ToList();
+        //    var zeilenCollection = new List<Zeile>();
+        //    while (eingangsWortliste.Count > 0)
+        //    {
+        //        var wortgruppe = WorteDerZeileBestimmen(eingangsWortliste, maxLength);
+        //        var zeile = new Zeile(wortgruppe);
+        //        zeilenCollection.Add(zeile);
+        //    }
+
+        //    return zeilenCollection.ToArray();
+        //}
+
+        //[TestMethod]
+        //public void In_Wordlist_a_b_c__ab_fitsInLine_with_maxLength_3()
+        //{
+        //    //Arrange
+        //    String[] wortliste = new[] { "a", "b", "c" };
+        //    int maxLength = 3;
+        //    String[] expectedLines = new[] { "a b", "c" };
+
+        //    //Act
+        //    String[] resultLinesArray = WordWrap.BildeZeilenAusWortgruppenImmutable(wortliste, maxLength);
+
+        //    //Assert
+        //    CollectionAssert.AreEqual(expectedLines, resultLinesArray);
+
+        //}
+
+        //[TestMethod]
+        //public void In_Wordlist_a_b_c__resultsIn_3_single_lines_with_maxLength_3()
+        //{
+        //    //Arrange
+        //    String[] wortliste = new[] { "a", "b", "c" };
+        //    int maxLength = 1;
+        //    String[] expectedLines = new[] { "a", "b", "c" };
+
+        //    //Act
+        //    String[] resultLinesArray = WordWrap.BildeZeilenAusWortgruppenImmutable(wortliste, maxLength);
+
+        //    //Assert
+        //    CollectionAssert.AreEqual(expectedLines, resultLinesArray);
+
+        //}
+
+        #endregion Phils Code
+
     }
 }

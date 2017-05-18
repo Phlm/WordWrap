@@ -32,37 +32,6 @@ namespace UnitTestWordWrap
             Assert.AreEqual<string>(wunschergebnis, ergebnisText);
         }
 
-        [TestMethod]
-        public void In_Wordlist_a_b_c__ab_fitsInLine_with_maxLength_3()
-        {
-            //Arrange
-            String[] wortliste = new[] { "a", "b", "c" };
-            int maxLength = 3;
-            String[] expectedLines = new[] { "a b" , "c" };
-
-            //Act
-            String[] resultLinesArray = WordWrap.BildeZeilenAusWortgruppenImmutable(wortliste, maxLength);
-
-            //Assert
-            CollectionAssert.AreEqual(expectedLines, resultLinesArray);
-
-        }
-
-        [TestMethod]
-        public void In_Wordlist_a_b_c__resultsIn_3_single_lines_with_maxLength_3()
-        {
-            //Arrange
-            String[] wortliste = new[] { "a", "b", "c" };
-            int maxLength = 1;
-            String[] expectedLines = new[] { "a", "b", "c" };
-
-            //Act
-            String[] resultLinesArray = WordWrap.BildeZeilenAusWortgruppenImmutable(wortliste, maxLength);
-
-            //Assert
-            CollectionAssert.AreEqual(expectedLines, resultLinesArray);
-
-        }
 
     }
 }
