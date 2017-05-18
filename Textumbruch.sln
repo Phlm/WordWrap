@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26228.12
+VisualStudioVersion = 15.0.26430.6
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Textumbruch", "Textumbruch.csproj", "{921867F0-DFDB-4F88-B39C-EC6E1F7F698B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestProject1", "UnitTest\UnitTestProject1\UnitTestProject1.csproj", "{666FDF62-7BA5-4EDE-8A48-82CBE7C99EA8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTestWordWrap", "UnitTest\UnitTestProject1\UnitTestWordWrap.csproj", "{666FDF62-7BA5-4EDE-8A48-82CBE7C99EA8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

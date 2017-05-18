@@ -6,21 +6,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 
-using Program;
+using static Program.WordWrap;
 using static System.Environment;
 // ReSharper disable All
 
-namespace UnitTestProject1
+namespace UnitTestWordWrap
 {
     [TestClass]
-    public class Test_Subroutines_TextUmbruch
+    public class Test_TextUmbruch_Subroutines
     {
-        readonly Program.TextUmbruch _textumbruch;
-
-        public Test_Subroutines_TextUmbruch()
-        {
-            _textumbruch = new Program.TextUmbruch();
-        }
 
         [TestMethod]
         public void Mixtest_WörterUmbrechen()
@@ -29,7 +23,7 @@ namespace UnitTestProject1
             string eingabeString = $"a\nb \nc {NewLine}d,\n";
             string[] wunschergebnis = new string[] {"a","b","c","d,"};
             //Act
-            var ergebnisText = _textumbruch.WörterUmbrechen(eingabeString);
+            var ergebnisText = WörterUmbrechen(eingabeString);
             //Assert
             CollectionAssert.AreEqual(wunschergebnis, ergebnisText);
         }
@@ -41,7 +35,7 @@ namespace UnitTestProject1
             string eingabeString = " a  bb   cc d  ";
             string[] wunschergebnis = new string[] { "a", "bb", "cc", "d" };
             //Act
-            var ergebnisText = _textumbruch.WörterUmbrechen(eingabeString);
+            var ergebnisText = WörterUmbrechen(eingabeString);
             //Assert
             CollectionAssert.AreEqual(wunschergebnis, ergebnisText);
         }
@@ -53,9 +47,22 @@ namespace UnitTestProject1
             string eingabeString = "a  ,b c,  , d,  ";
             string[] wunschergebnis = new string[] { "a", ",b", "c,", "," , "d," };
             //Act
-            var ergebnisText = _textumbruch.WörterUmbrechen(eingabeString);
+            var ergebnisText = WörterUmbrechen(eingabeString);
             //Assert
             CollectionAssert.AreEqual(wunschergebnis, ergebnisText);
+        }
+
+
+        [TestMethod]
+        public void Textumbruch_abc_mit_mehereren_Leerzeichen_ergibt_abc_Zeilen()
+        {
+            // Arrange
+            string beispiel = "a  b  c  ";
+            var zeilenArray = new string[] { "a", "b", "c" };
+            // Act
+            var ergebnis = WörterUmbrechen(beispiel);
+            // Assert
+            CollectionAssert.AreEqual(zeilenArray, ergebnis);
         }
     }
 }

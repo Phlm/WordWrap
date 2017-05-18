@@ -48,8 +48,8 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TextUmbruch.cs" />
-    <Compile Include="ToolFunctions.cs" />
+    <Compile Include="WordWrap.cs" />
+    <Compile Include="zToolFunctions.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
